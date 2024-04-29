@@ -69,6 +69,15 @@ public class Base64 {
     //  shared code
     //  --------------------------------------------------------
 
+                  /**
+                   * is an abstract class that provides a framework for encoding and decoding data. It
+                   * has a `output` field to store the coded data and an `op` field to keep track of
+                   * the length of the coded data. The `process` method takes in input data, offset,
+                   * len, and a boolean `finish` parameter to indicate if it's the final call. This
+                   * method returns true if the input is good, and false if some error has been detected.
+                   * The `maxOutputSize` method returns the maximum number of bytes a call to `process()`
+                   * could produce for a given number of input bytes.
+                   */
     /* package */ static abstract class Coder {
         public byte[] output;
         public int op;
@@ -170,6 +179,12 @@ public class Base64 {
         return temp;
     }
 
+                  /**
+                   * is an implementation of the Base64 encoding algorithm in Java. It takes input bytes
+                   * and outputs decoded bytes based on a state machine implementation. The class has
+                   * various methods for processing different blocks of input data, as well as methods
+                   * to handle the fast path and slow path of the decoding process.
+                   */
     /* package */ static class Decoder extends Coder {
         /**
          * Lookup table for turning bytes into their position in the
@@ -545,6 +560,18 @@ public class Base64 {
         return encoder.output;
     }
 
+                  /**
+                   * is an internal class in the Java library "java.util.zip" that encodes a sequence
+                   * of bytes into a string using the Huffman coding algorithm. The class has several
+                   * methods for encoding data, including `encodeInternal` which is the main method for
+                   * encoding data. This method takes input bytes and outputs the encoded string. It
+                   * also keeps track of the number of bytes consumed and the number of characters
+                   * produced, as well as the tail of the input bytes that have not been processed yet.
+                   * The method uses a loop to iterate over the input bytes and produce the output
+                   * string, with each iteration consuming 3 input bytes and producing 4 output bytes.
+                   * The method also handles cases where there are fewer than 3 input bytes available
+                   * or where the input is empty.
+                   */
     /* package */ static class Encoder extends Coder {
         /**
          * Emit a new line every this many output tuples.  Corresponds to
@@ -606,6 +633,36 @@ public class Base64 {
             return len * 8 / 5 + 10;
         }
 
+        /**
+         * encodes bytes using a transformation cipher, with input and output buffers, and
+         * handles tail processing and new line padding. It returns `true` when finished encoding.
+         * 
+         * @param input 3-4 byte array of data that is being encoded.
+         * 
+         * 	- `offset`: The starting position of the input in the original byte array.
+         * 	- `len`: The total length of the input.
+         * 	- `tailLen`: The number of bytes in the tail of the previous call to `encodeInternal`.
+         * 	- `alphabet`: An array of 32 bytes, representing the 16 possible values for each
+         * of the four bytes in a line.
+         * 	- `output`: A byte array holding the encoded output.
+         * 	- `op`: The current position in the output array.
+         * 	- `count`: The number of bytes remaining to be encoded.
+         * 
+         * The function performs encoding on the input bytes, consuming them one at a time
+         * and producing corresponding outputs in the `output` array. If the input is fully
+         * consumed, the function returns `true`.
+         * 
+         * @param offset 0-based offset into the `input` array where the encoding should start.
+         * 
+         * @param len total number of bytes to be encoded by the function, and it is used to
+         * determine the number of bytes available for encoding each iteration of the main loop.
+         * 
+         * @param finish option to finish the encoding of the input string and produce the
+         * final output, instead of leaving it for the next call to `encodeInternal()`.
+         * 
+         * @returns a byte array representing the encoded data, with a certain number of bytes
+         * left over for possible consumption on the next call.
+         */
         public boolean process(byte[] input, int offset, int len, boolean finish) {
             // Using local variables makes the encoder about 9% faster.
             final byte[] alphabet = this.alphabet;
