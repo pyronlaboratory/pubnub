@@ -19,6 +19,7 @@ public class PresenceBuilder extends PubSubBuilder {
         super(subscriptionManager);
     }
 
+    
     public void execute() {
         PresenceOperation presenceOperation = PresenceOperation.builder()
                 .channels(this.getChannelSubscriptions())
