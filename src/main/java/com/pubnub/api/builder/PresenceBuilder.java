@@ -7,6 +7,12 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import java.util.List;
 
+/**
+ * is an extension of PubSubBuilder that allows for the modification and customization
+ * of presence data. The class has several methods for adding and modifying channels
+ * and channel groups in the presence data, as well as a `execute()` method for
+ * applying these modifications to the subscription manager.
+ */
 @Setter
 @Accessors(chain = true, fluent = true)
 public class PresenceBuilder extends PubSubBuilder {
@@ -19,6 +25,10 @@ public class PresenceBuilder extends PubSubBuilder {
     }
 
     
+    /**
+     * builds a `PresenceOperation` object based on subscription and channel group
+     * information, then passes it to the `adaptPresenceBuilder` method of the `SubscriptionManager`.
+     */
     public void execute() {
         PresenceOperation presenceOperation = PresenceOperation.builder()
                 .channels(this.getChannelSubscriptions())
