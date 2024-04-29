@@ -8,11 +8,15 @@ import lombok.experimental.Accessors;
 import java.util.List;
 
 /**
- * is an extension of PubSubBuilder that allows for modifying and customizing presence
- * data. It provides methods for adding and modifying channels and channel groups in
- * the presence data, as well as a `execute()` method for applying these modifications
- * to the subscription manager. The class also has publicly accessible fields for
- * connected and subscribed channels.
+ * is an extension of the PubSubBuilder class that allows for building presence
+ * channels based on user presence, group membership, and event triggers. It provides
+ * a fluent interface for creating complex presence channel rules by combining multiple
+ * conditions and actions. The class has three methods: `channelGroups`, `execute`,
+ * and `channels` which respectively return a `PresenceBuilder` instance after calling
+ * the superclass method `channelGroups` with the provided argument, execute the
+ * presence operation, and returns a `PresenceBuilder` instance after taking a list
+ * of strings as input, which is then passed to the parent `super.channels()` method
+ * for further processing.
  */
 @Setter
 @Accessors(chain = true, fluent = true)
@@ -27,8 +31,8 @@ public class PresenceBuilder extends PubSubBuilder {
 
     
     /**
-     * builds a `PresenceOperation` object representing the current state of channel
-     * subscriptions and updates the presence builder with it.
+     * creates a `PresenceOperation` object with subscriptions and groups, and passes it
+     * to the `adaptPresenceBuilder` method of the `SubscriptionManager`.
      */
     public void execute() {
         PresenceOperation presenceOperation = PresenceOperation.builder()
@@ -41,52 +45,52 @@ public class PresenceBuilder extends PubSubBuilder {
     }
 
     /**
-     * returns a `PresenceBuilder` instance after taking a list of strings as input, which
-     * is then passed to the parent `super.channels()` method for further processing.
+     * takes a list of strings as input and returns a `PresenceBuilder` object, which is
+     * a superclass of `ChatMessage`.
      * 
-     * @param channels list of presence channels to be used by the `PresenceBuilder`
-     * object returned by the function.
+     * @param channels List of strings that will be used to define the channels for which
+     * the presence builder will build the presence states.
      * 
-     * The `List<String>` parameter represents a list of strings that contain the channels
-     * to be processed by the `PresenceBuilder`.
-     * The return type is a casted instance of `PresenceBuilder`, indicating that the
-     * method calls the `super.channels()` method, passing in the `channels` list as an
-     * argument.
+     * The `channels` parameter is a list of strings.
+     * The `PresenceBuilder` object returned by the method can be used to construct a
+     * presence channel with the specified channels.
      * 
-     * @returns a `PresenceBuilder` object.
+     * @returns a PresenceBuilder instance.
      * 
-     * 	- The return type is `(PresenceBuilder)`, indicating that it is a builder object
-     * for creating presence objects.
-     * 	- The method is called `super.channels`, which means that it is calling the parent
-     * class's `channels` method to retrieve a list of channels.
-     * 	- The `List<String>` parameter `channels` represents the list of channels that
-     * are passed as arguments to the function.
+     * 	- The `PresenceBuilder` object is generated through the `super.channels(channels)`
+     * method call, indicating that it inherits properties from its superclass.
+     * 	- The `channels` parameter is a list of strings representing the channels to be
+     * processed by the `PresenceBuilder`.
+     * 	- The returned `PresenceBuilder` object allows for further modifications and
+     * customization of the presence information.
      */
     public PresenceBuilder channels(List<String> channels) {
         return (PresenceBuilder) super.channels(channels);
     }
 
     /**
-     * takes a list of String arguments and returns a PresenceBuilder object after calling
-     * the superclass method `channelGroups` with the provided argument.
+     * takes a list of strings and returns a `PresenceBuilder` object, allowing for the
+     * manipulation of channel groups within the presence system.
      * 
-     * @param channelGroups list of channels that will be used for grouping presence events.
+     * @param channelGroups list of strings that will be used to define the presence
+     * channels in the PresenceBuilder object returned by the function.
      * 
-     * 	- It is a list of strings, indicating the channel groups to which the presence
-     * builder should apply its operations.
-     * 	- The elements in the list can be any combination of valid channel names or
-     * wildcards, allowing for flexible matching and application of presence operations
-     * across multiple channels.
+     * The `channelGroups` parameter is of type `List<String>`, indicating that it is a
+     * list of strings.
      * 
-     * @returns a `PresenceBuilder` instance.
+     * The `super.channelGroups` call is used to delegate the processing of the `channelGroups`
+     * parameter to the superclass, indicating that this function is a subclass of another
+     * class that has a `channelGroups` method.
      * 
-     * The `PresenceBuilder` object is the result of calling the `super.channelGroups`
-     * method and passing in the `List<String>` parameter.
+     * @returns a PresenceBuilder instance filled with the given channel groups.
      * 
-     * The `PresenceBuilder` class provides a way to build presence channels based on a
-     * set of criteria, such as user presence, group membership, and event triggers. It
-     * can be used to create complex presence channel rules by combining multiple conditions
-     * and actions.
+     * 	- The `PresenceBuilder` return type indicates that the function returns an object
+     * of the `PresenceBuilder` class, which is a builder class for creating presence objects.
+     * 	- The `(Super)` prefix on the return statement signifies that the function is
+     * overriding a method from its superclass, `Object`.
+     * 	- The `channelGroups` parameter is passed as a list of strings, indicating that
+     * it is a collection of strings representing the channel groups to be processed by
+     * the function.
      */
     public PresenceBuilder channelGroups(List<String> channelGroups) {
         return (PresenceBuilder) super.channelGroups(channelGroups);
