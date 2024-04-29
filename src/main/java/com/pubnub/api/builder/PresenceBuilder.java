@@ -5,7 +5,6 @@ import com.pubnub.api.managers.SubscriptionManager;
 import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
 import java.util.List;
 
 @Setter
