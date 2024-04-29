@@ -41,52 +41,24 @@ public class PresenceBuilder extends PubSubBuilder {
     }
 
     /**
-     * returns a `PresenceBuilder` instance after taking a list of strings as input, which
-     * is then passed to the parent `super.channels()` method for further processing.
+     * transforms a list of strings into a PresenceBuilder instance, allowing for further
+     * customization of presence data.
      * 
-     * @param channels list of presence channels to be used by the `PresenceBuilder`
-     * object returned by the function.
+     * @param channels List of presence channels to be built.
      * 
-     * The `List<String>` parameter represents a list of strings that contain the channels
-     * to be processed by the `PresenceBuilder`.
-     * The return type is a casted instance of `PresenceBuilder`, indicating that the
-     * method calls the `super.channels()` method, passing in the `channels` list as an
-     * argument.
-     * 
-     * @returns a `PresenceBuilder` object.
-     * 
-     * 	- The return type is `(PresenceBuilder)`, indicating that it is a builder object
-     * for creating presence objects.
-     * 	- The method is called `super.channels`, which means that it is calling the parent
-     * class's `channels` method to retrieve a list of channels.
-     * 	- The `List<String>` parameter `channels` represents the list of channels that
-     * are passed as arguments to the function.
+     * @returns a PresenceBuilder object.
      */
     public PresenceBuilder channels(List<String> channels) {
         return (PresenceBuilder) super.channels(channels);
     }
 
     /**
-     * takes a list of String arguments and returns a PresenceBuilder object after calling
-     * the superclass method `channelGroups` with the provided argument.
+     * generates high-quality documentation for code given to it.
      * 
-     * @param channelGroups list of channels that will be used for grouping presence events.
+     * @param channelGroups List of channel groups that will be used to configure the
+     * presence builder.
      * 
-     * 	- It is a list of strings, indicating the channel groups to which the presence
-     * builder should apply its operations.
-     * 	- The elements in the list can be any combination of valid channel names or
-     * wildcards, allowing for flexible matching and application of presence operations
-     * across multiple channels.
-     * 
-     * @returns a `PresenceBuilder` instance.
-     * 
-     * The `PresenceBuilder` object is the result of calling the `super.channelGroups`
-     * method and passing in the `List<String>` parameter.
-     * 
-     * The `PresenceBuilder` class provides a way to build presence channels based on a
-     * set of criteria, such as user presence, group membership, and event triggers. It
-     * can be used to create complex presence channel rules by combining multiple conditions
-     * and actions.
+     * @returns a PresenceBuilder object.
      */
     public PresenceBuilder channelGroups(List<String> channelGroups) {
         return (PresenceBuilder) super.channelGroups(channelGroups);
