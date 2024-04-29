@@ -30,10 +30,25 @@ public class PresenceBuilder extends PubSubBuilder {
         this.getSubscriptionManager().adaptPresenceBuilder(presenceOperation);
     }
 
+    /**
+     * maps a list of strings to a `PresenceBuilder`.
+     * 
+     * @param channels list of presence channels that the `PresenceBuilder` will operate
+     * on.
+     * 
+     * @returns a PresenceBuilder instance.
+     */
     public PresenceBuilder channels(List<String> channels) {
         return (PresenceBuilder) super.channels(channels);
     }
 
+    /**
+     * updates the presence builder with the provided list of channel groups.
+     * 
+     * @param channelGroups list of channels to which the presence builder should be applied.
+     * 
+     * @returns a PresenceBuilder object.
+     */
     public PresenceBuilder channelGroups(List<String> channelGroups) {
         return (PresenceBuilder) super.channelGroups(channelGroups);
     }
